@@ -116,10 +116,9 @@ npm run dev
 ## Env Variables cần thiết
 
 ```env
-GROQ_API_KEY=gsk_...          # AI hints, bugs, complexity, flowchart (LLM)
-GEMINI_API_KEY=AIza...         # OCR ảnh đề bài (Vision)
+GROQ_API_KEY=gsk_...          # AI hints, bugs, complexity, flowchart
+GEMINI_API_KEY=AIza...         # OCR ảnh đề bài
 DATABASE_URL=sqlite:///./db.sqlite3
 SECRET_KEY=your-secret-key
 ```
 
-Visualize và Dashboard **KHÔNG cần API key** nào.
