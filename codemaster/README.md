@@ -108,8 +108,8 @@ npm run dev
 | Backend API | `backend/api/` | Ngọc, Huỳnh | FastAPI routes |
 | AI Service | `backend/services/ai_service.py` | Ngọc, Huỳnh | Groq LLM |
 | Judge (run code) | `backend/services/judge.py` | Ngọc, Huỳnh | Docker sandbox |
-| OCR + Sinh TC | `backend/ocr_sinhtestcase/` | Sang, Dũng, Thông | PaddleOCR |
-| **Visualize** | `visualize/code_tracer.py` | **Minh** | **KHÔNG AI — pure graph** |
+| OCR + Sinh TC | `backend/ocr_sinhtestcase/` | Sang, Dũng, Thông | PaddleOCR, Gemini |
+| **Visualize** | `visualize/code_tracer.py` | **Minh** | Graph |
 | **Dashboard logic** | `dashboard/dashboard_service.py` | **Phúc** | Analytics, skill score |
 
 ---
