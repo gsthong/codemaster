@@ -1,3 +1,8 @@
 /.venv
 codemaster/frontend/.next/
 codemaster/frontend/node_modules/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.egg-info/
+.env

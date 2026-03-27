@@ -10,9 +10,11 @@ load_dotenv(".env")
 print("___START___")
 
 api_key = os.getenv("gemini_api_key")
+if not api_key:
+    raise RuntimeError("GEMINI_API_KEY not set. Please set it in .env or environment variables.")
 
 # 1. Khởi tạo Client
-client = genai.Client(api_key="AIzaSyCuvTIJ6gQQBAnFoEBHdYtbc-enmNXxMTQ") #lúc xài thì tạo file .env và bỏ api key vào =))
+client = genai.Client(api_key=api_key)
 
 
 # 2. Đọc trực tiếp file ảnh
