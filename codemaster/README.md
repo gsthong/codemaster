@@ -1,70 +1,70 @@
 # CodeMaster — Hệ thống hỗ trợ lập trình tích hợp AI
 
-> LeetCode + GPT style | Hỗ trợ wecode | Visualize graph | Dashboard tiến độ
+> LeetCode + GPT | Hỗ trợ wecode | Visualize graph | Dashboard tiến độ
 
 ---
 
-## 📁 Cấu trúc folder
+## Cấu trúc folder
 
 ```
 codemaster/
-├── main.py                        # FastAPI entry point — gọi tất cả routers
+├── main.py
 │
 ├── backend/
 │   ├── api/
-│   │   ├── ai.py                  # /api/ai/* — hints, bugs, OCR, flowchart (Groq LLM)
-│   │   ├── auth.py                # /api/auth/* — login/register
-│   │   ├── problems.py            # /api/problems/* — CRUD bài tập
-│   │   └── submissions.py         # /api/submissions/* — submit + judge
+│   │   ├── ai.py
+│   │   ├── auth.py 
+│   │   ├── problems.py 
+│   │   └── submissions.py
 │   │
 │   ├── services/
-│   │   ├── ai_service.py          # Groq llama-3.3-70b — hint, bug, complexity, flowchart
-│   │   ├── judge.py               # Chạy code sandbox (Docker / subprocess)
-│   │   ├── ocr_service.py         # OCR ảnh/PDF đề bài → JSON (Gemini Vision + EasyOCR)
-│   │   └── static_analyzer.py     # GNN heuristic — TLE risk, bug hints (NO API key)
+│   │   ├── ai_service.py 
+│   │   ├── judge.py    
+│   │   ├── ocr_service.py  
+│   │   └── static_analyzer.py   
 │   │
 │   └── ocr_sinhtestcase/
-│       ├── ocr.py                 # PaddleOCR wrapper
-│       ├── ocr+sinhtc.py          # OCR + sinh test case
-│       ├── ocr_sinhtc_fastapi.py  # FastAPI endpoint standalone
-│       └── api_vietcodesinhtc.py  # Wecode integration
+│       ├── ocr.py               
+│       ├── ocr+sinhtc.py       
+│       ├── ocr_sinhtc_fastapi.py
+│       └── api_vietcodesinhtc.py  
 │
 ├── visualize/
-│   └── code_tracer.py             # ⭐ Visualize module — KHÔNG dùng AI
-│       ├── trace_code()           # Chạy Python + ghi từng bước → JSON steps
-│       ├── FlowchartBuilder       # AST → Mermaid flowchart (pure Python)
-│       ├── estimate_complexity()  # Heuristic O() từ trace
+│   └── code_tracer.py           
+│       ├── trace_code()   
+│       ├── FlowchartBuilder   
+│       ├── estimate_complexity()  
 │       └── FastAPI router:
-│           POST /visualize/trace      → { steps, flowchart_mermaid, complexity }
-│           POST /visualize/flowchart  → { mermaid }
+│           POST /visualize/trace 
+│           POST /visualize/flowchart 
 │
 ├── dashboard/
-│   └── dashboard_service.py       # ⭐ Analytics module (Phúc)
-│       ├── compute_skill_scores() # Skill score theo topic (0–100)
-│       ├── compute_summary()      # Tổng AC/WA/TLE
-│       ├── recommend_next()       # Đề xuất bài luyện tiếp theo
-│       ├── exam_readiness()       # Điểm sẵn sàng thi
-│       ├── root_cause_analysis()  # Phân tích lỗi phổ biến
+│   └── dashboard_service.py       
+│       ├── compute_skill_scores() 
+│       ├── compute_summary()    
+│       ├── recommend_next()      
+│       ├── exam_readiness()     
+│       ├── root_cause_analysis()
 │       └── FastAPI router:
-│           POST /dashboard/report         → full analytics
-│           POST /dashboard/skill-scores   → skill per topic
-│           POST /dashboard/recommend      → gợi ý bài tiếp
-│           POST /dashboard/exam-readiness → điểm thi
+│           POST /dashboard/report  
+│           POST /dashboard/skill-scores 
+│           POST /dashboard/recommend     
+│           POST /dashboard/exam-readiness
 │
-├── frontend/                      # Next.js 14 (App Router)
+├── frontend/                     
 │   ├── app/
-│   │   ├── page.tsx               # Home
-│   │   ├── practice/page.tsx      # IDE workspace
-│   │   ├── dashboard/page.tsx     # Dashboard thống kê
-│   │   ├── mock-exams/page.tsx    # Thi thử
-│   │   ├── syllabus-upload/page.tsx # Upload đề cương
+│   │   ├── page.tsx              
+│   │   ├── practice/page.tsx      
+│   │   ├── dashboard/page.tsx    
+│   │   ├── mock-exams/page.tsx   
+│   │   ├── syllabus-upload/page.tsx 
 │   │   └── settings/page.tsx
 │   ├── components/
 │   │   ├── practice/
-│   │   │   ├── IDEWorkspace.tsx   # IDE layout
-│   │   │   ├── CodeEditor.tsx     # Monaco editor
-│   │   │   ├── AIAssistant.tsx    # Hint panel
-│   │   │   └── ProblemContext.tsx # Đề bài + test case
+│   │   │   ├── IDEWorkspace.tsx  
+│   │   │   ├── CodeEditor.tsx   
+│   │   │   ├── AIAssistant.tsx   
+│   │   │   └── ProblemContext.tsx 
 │   │   └── dashboard/
 │   │       ├── SkillRadarChart.tsx
 │   │       ├── ProblemStatsChart.tsx
@@ -76,12 +76,12 @@ codemaster/
 │       ├── constants.ts
 │       └── utils.ts
 │
-└── docker-compose.yml             # Full stack: FE + BE + DB
+└── docker-compose.yml         
 ```
 
 ---
 
-## 🚀 Chạy nhanh
+## HDSD 
 
 ```bash
 # Backend
@@ -99,7 +99,7 @@ npm run dev
 
 ---
 
-## 🎯 Phân chia module theo team
+## Phân chia công việc
 
 | Module | File chính | Owner | Ghi chú |
 |---|---|---|---|
@@ -113,67 +113,7 @@ npm run dev
 | **Dashboard logic** | `dashboard/dashboard_service.py` | **Phúc** | Analytics, skill score |
 
 ---
-
-## ⭐ Visualize Module (Minh)
-
-**KHÔNG dùng AI.** Dùng Python `ast` + `sys.settrace` để phân tích code.
-
-```
-POST /visualize/trace
-{
-  "code": "def solve(arr):\n    ...",
-  "input_array": [1, -2, 3, 4, -1],
-  "build_flowchart": true
-}
-
-Response:
-{
-  "status": "OK",
-  "result": 7,
-  "steps": [
-    { "line": 2, "vars": { "max_sum": "-inf", "current": 0 }, "changed": [] },
-    ...
-  ],
-  "flowchart_mermaid": "graph TD\n  N1([\"Start\"])\n  ...",
-  "complexity": { "time": "O(n)", "note": "Max 5 lần lặp / 5 phần tử" }
-}
-```
-
-Frontend nhận `flowchart_mermaid` → render bằng **Mermaid.js**.  
-Frontend nhận `steps` → animate từng bước (highlight dòng + hiện biến).
-
-### Cách tích hợp Mermaid vào Next.js:
-```bash
-npm install mermaid
-```
-```tsx
-import mermaid from 'mermaid'
-// render mermaid string từ /visualize/flowchart
-```
-
----
-
-## 📊 Dashboard Module (Phúc)
-
-```
-POST /dashboard/report
-{ "submissions": [ { "user_id":1, "topic":"Array", "difficulty":"medium",
-                      "status":"AC", "time_used":0.8 }, ... ] }
-
-Response:
-{
-  "summary": { "total": 100, "AC": 60, "WA": 25, "TLE": 15, "accuracy_rate": 0.6 },
-  "skill_scores": { "Array": 72.5, "Graph": 48.0, "DP": 55.2 },
-  "weak_topics": [ { "topic":"Graph", "score":48.0 }, ... ],
-  "recommendations": { "Graph": "Luyện 3 bài easy về Graph để củng cố nền tảng" },
-  "exam_readiness": { "Array": 0.81, "Graph": 0.54 },
-  "root_cause": { "Graph": { "nested_loop_rate": 0.6, "edge_case_rate": 0.4 } }
-}
-```
-
----
-
-## 🔑 Env Variables cần thiết
+## Env Variables cần thiết
 
 ```env
 GROQ_API_KEY=gsk_...          # AI hints, bugs, complexity, flowchart (LLM)
