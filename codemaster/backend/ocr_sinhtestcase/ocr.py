@@ -8,7 +8,10 @@ def lay_de_bai_tu_anh(duong_dan_anh):
     print("--- HỆ THỐNG VISION LLM ĐỌC ĐỀ ---")
 
     # 1. Khởi tạo Client 
-    client = genai.Client(api_key="api_key") #nhap api key vo 
+    api_key = os.getenv("gemini_api_key")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY not set. Please configure it in .env or environment variables.")
+    client = genai.Client(api_key=api_key)
 
     print(f"1. Đang tải ảnh Wecode từ: {duong_dan_anh}...")
     try:

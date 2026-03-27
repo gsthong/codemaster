@@ -16,7 +16,10 @@ if de_bai_ocr is not None:
     print("\n>> BƯỚC 2: BẮT ĐẦU ĐẺ TESTCASE TỪ ĐỀ BÀI VỪA ĐỌC...")
     
     # 1. Khởi tạo Client (Cú pháp MỚI)
-    client = genai.Client(api_key="AIzaSyCuvTIJ6gQQBAnFoEBHdYtbc-enmNXxMTQ")
+    api_key = os.getenv("gemini_api_key")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY not set. Please configure it in .env or environment variables.")
+    client = genai.Client(api_key=api_key)
     
     prompt_testcase = f"""
     Bạn là Kỹ sư phần mềm. Dưới đây là đề bài C++ được trích xuất từ ảnh dưới dạng JSON:
