@@ -6,7 +6,7 @@ from typing import Dict, Optional
 
 logger = logging.getLogger(__name__)
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "REMOVED")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_MODEL   = "llama-3.3-70b-versatile"
 
 HARNESS_PROMPT = """You are an expert system for competitive programming platforms like LeetCode.

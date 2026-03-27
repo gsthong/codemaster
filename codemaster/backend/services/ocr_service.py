@@ -15,8 +15,8 @@ import requests
 from typing import Optional, Dict
 from . import harness_service
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "REMOVED")
-GROQ_API_KEY   = os.getenv("GROQ_API_KEY", "REMOVED")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY   = os.getenv("GROQ_API_KEY")
 GEMINI_MODEL   = "gemini-1.5-flash"
 GROQ_URL       = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL     = "llama-3.3-70b-versatile"

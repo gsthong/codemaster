@@ -2,11 +2,11 @@
 Stop-Process -Name "uvicorn" -ErrorAction SilentlyContinue
 Stop-Process -Name "node" -ErrorAction SilentlyContinue
 
-$GROQ_KEY = "REMOVED"
-$GEMINI_KEY = "REMOVED"
+# $GROQ_KEY = "REMOVED"
+# $GEMINI_KEY = "REMOVED"
 
-$env:GROQ_API_KEY = $GROQ_KEY
-$env:GEMINI_API_KEY = $GEMINI_KEY
+# $env:GROQ_API_KEY = $GROQ_KEY
+# $env:GEMINI_API_KEY = $GEMINI_KEY
 
 Write-Host "--- Khởi động CodeMaster ---" -ForegroundColor Cyan
 
