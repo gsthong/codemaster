@@ -68,5 +68,12 @@ def wrap_code(user_code: str, harness_code: str, lang: str) -> str:
         return headers + user_code + "\n\n" + harness_code
     elif lang == "python":
         return user_code + "\n\n" + harness_code
+    elif lang == "java":
+        # Java needs to be in class Solution for the judge to find it
+        if "class Solution" not in user_code:
+            user_code = f"class Solution {{\n{user_code}\n}}"
+        return user_code + "\n\n" + harness_code
+    elif lang == "javascript":
+        return user_code + "\n\n" + harness_code
         
     return user_code

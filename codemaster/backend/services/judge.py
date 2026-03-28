@@ -75,8 +75,8 @@ async def execute_cpp(code: str, stdin: str, time_limit: float) -> dict:
             f.write(code)
 
         if _docker_available():
-            # Normalize Windows path for Docker volume mount
-            docker_tmp = os.path.abspath(tmp).replace("\\", "/")
+            from pathlib import Path
+            docker_tmp = Path(tmp).absolute().as_posix()
             
             compile_cmd = [
                 "docker", "run", "--rm", "--network", "none",
@@ -87,9 +87,9 @@ async def execute_cpp(code: str, stdin: str, time_limit: float) -> dict:
             ]
             rc, stdout, err = await _run_cmd(compile_cmd, "", 30.0)
             if rc != 0:
-                # Return the actual error message so user can see what's wrong (e.g. missing Docker)
                 error_msg = err or stdout or "Compile failed (Docker)"
-                return {"status": "CE", "error": error_msg, "runtime_ms": 0}
+                logger.error(f"C++ Docker compile failed: {error_msg}")
+                return {"status": "CE", "error": f"Docker Compile Error: {error_msg}", "runtime_ms": 0}
             
             run_cmd = [
                 "docker", "run", "--rm", "--network", "none",
@@ -135,8 +135,8 @@ async def execute_python(code: str, stdin: str, time_limit: float) -> dict:
             f.write(code)
 
         if _docker_available():
-            # Normalize Windows path for Docker volume mount
-            docker_tmp = os.path.abspath(tmp).replace("\\", "/")
+            from pathlib import Path
+            docker_tmp = Path(tmp).absolute().as_posix()
             
             run_cmd = [
                 "docker", "run", "--rm", "--network", "none",
@@ -146,7 +146,9 @@ async def execute_python(code: str, stdin: str, time_limit: float) -> dict:
                 "python3", "/code/solution.py",
             ]
         else:
-            run_cmd = ["python3", src]
+            import sys
+            python_cmd = "python" if os.name == 'nt' else "python3"
+            run_cmd = [python_cmd, src]
 
         start = time.perf_counter()
         rc, stdout, stderr = await _run_cmd(run_cmd, stdin, time_limit + 1)
@@ -179,7 +181,8 @@ async def execute_java(code: str, stdin: str, time_limit: float) -> dict:
             f.write(code)
 
         if _docker_available():
-            docker_tmp = os.path.abspath(tmp).replace("\\", "/")
+            from pathlib import Path
+            docker_tmp = Path(tmp).absolute().as_posix()
             # Compile
             compile_cmd = [
                 "docker", "run", "--rm", "--network", "none",
@@ -239,8 +242,8 @@ async def execute_javascript(code: str, stdin: str, time_limit: float) -> dict:
             f.write(code)
 
         if _docker_available():
-            # Normalize Windows path for Docker volume mount
-            docker_tmp = os.path.abspath(tmp).replace("\\", "/")
+            from pathlib import Path
+            docker_tmp = Path(tmp).absolute().as_posix()
             
             run_cmd = [
                 "docker", "run", "--rm", "--network", "none",
